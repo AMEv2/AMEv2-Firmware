@@ -1,0 +1,138 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>AMEv2 Update</title>
+  <script>
+    function sub(obj) {
+      var otafile = document.getElementById("otafile").files;
+      document.getElementById('file-input').innerHTML = '   ' + otafile[0].name;
+    };
+    function startUpload() {
+      var otafile = document.getElementById("otafile").files;
+
+      if (otafile.length == 0) {
+        alert("No file selected!");
+      } else {
+        document.getElementById("otafile").disabled = true;
+        document.getElementById("upload").disabled = true;
+
+        var file = otafile[0];
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              document.open();
+              document.write(xhr.responseText);
+              document.close();
+            } else if (xhr.status == 0) {
+              alert("Server closed the connection abruptly!");
+              location.reload()
+            } else {
+              alert(xhr.status + " Error!\n" + xhr.responseText);
+              location.reload()
+            }
+          }
+        };
+
+        xhr.upload.onprogress = function (e) {
+          var progress = document.getElementById("progress");
+          progress.textContent = "Progress: " + (e.loaded / e.total * 100).toFixed(0) + "% ";
+        };
+        xhr.open("POST", "/update", true);
+        xhr.send(file);
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: #3498db;
+      font-family: sans-serif;
+      font-size: 14px;
+      color: #777
+    }
+
+    .form_div {
+      background: #fff;
+      max-width: 258px;
+      margin: 75px auto;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0px 0px 20px #000000;
+    }
+
+    .btn {
+      background: #3498db;
+      color: #fff;
+      cursor: pointer;
+      padding: 5px 20px;
+      width: 100%;
+      height: 44px;
+      border-radius: 6px;
+      border: 0;
+      margin: 10px auto;
+      font-size: 15px;
+      box-shadow: 3px 3px 8px #000000;
+    }
+
+    .btn:hover {
+      background: #2980b9
+    }
+
+    .btn:active {
+      box-shadow: 1px 1px 2px #000000;
+      transform: translateY(4px);
+    }
+
+    #file-input,
+    input {
+      width: 100%;
+      height: 44px;
+      border-radius: 6px;
+      margin: 10px auto;
+      font-size: 15px;
+      border: 0;
+    }
+
+    #file-input {
+      padding: 0;
+      border: 1px solid #ddd;
+      line-height: 44px;
+      text-align: left;
+      display: block;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 3px 3px 8px #000000;
+      border: 0;
+    }
+
+    #file-input:hover {
+      background: #f5f5f5;
+    }
+
+    #file-input:active {
+      box-shadow: 1px 1px 2px #000000;
+      transform: translateY(4px);
+    }
+
+    h1 {
+      color: #174e74
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form_div">
+    <h1>AMEv2 Update</h1>
+    <div>
+      <input type='file' name='update' id='otafile' onchange='sub(this)' style=display:none>
+      <label id="file-input" for="otafile">Select Firmware file</label>
+    </div>
+    <div>
+      <button class="btn" id="upload" type="button" onclick="startUpload()">Upload</button>
+    </div>
+    <br><br>
+    <!-- <div>
+      <h4>Version: 0.0.1</h4>
+    </div> -->
+  </div>
+</body>

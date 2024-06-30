@@ -1,0 +1,21 @@
+dependencies:
+  cmd_nvs:
+    component_hash: null
+    source:
+      path: C:\Users\Christiaan\esp\v5.2.1\esp-idf\examples\system\console\advanced\components\cmd_nvs
+      type: local
+    version: '*'
+  cmd_system:
+    component_hash: null
+    source:
+      path: C:\Users\Christiaan\esp\v5.2.1\esp-idf\examples\system\console\advanced\components\cmd_system
+      type: local
+    version: '*'
+  idf:
+    component_hash: null
+    source:
+      type: idf
+    version: 5.2.1
+manifest_hash: 049c28fe491ebddac067d82c383ac80f91ac03f7d16e5b2b624bd69dcfc0c49d
+target: esp32s3
+version: 1.0.0

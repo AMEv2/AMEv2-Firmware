@@ -1,0 +1,326 @@
+menu "AME Configuration"
+
+    menu "IO Configuration"
+        config IO_PIN_ZVS_ON_OFF
+            int "ZVS On Off pin"
+            default 13
+            range 1 48
+            help
+                Pin Used to turn the ZVS on or off.
+
+        config IO_PIN_ZVS_CTRL
+            int "ZVS Control Pin"
+            default 46
+            range 1 48
+            help
+                Pin Used to control the ZVS (By shorting the ZVS MOSFET Gates to GND).
+        
+        config IO_PIN_DROP_GATE
+            int "Drop Gate solenoid GPIO Number"
+            default 35
+            range 1 48
+            help
+                Pin number used for Drop gate Solenoid.
+
+        config IO_PIN_BUZZER
+            int "Buzzer GPIO Number"
+            default 11
+            range 1 48
+            help
+                Pin number used for Buzzer.
+
+        config IO_PIN_FANS
+            int "Fans GPIO Number"
+            default 48
+            range 1 48
+            help
+                Pin number used to control the Fans.
+
+        config IO_PIN_PUMP
+            int "Water Pump GPIO Number"
+            default 47
+            range 1 48
+            help
+                Pin number used to control the water pump.
+
+        config IO_PIN_PUMP_TACH
+            int "Water Pump Tach GPIO Number"
+            default 21
+            range 1 48
+            help
+                Pin number used to measure pump RPM.
+
+        config IO_PIN_CASE_PICKUP_OUT
+            int "Case Pickup Output GPIO Number"
+            default 36
+            range 1 48
+            help
+                Pin number used to control the TX LED for the case pickup.
+
+        config IO_PIN_CASE_PICKUP_IN
+            int "Case Pickup Input GPIO Number"
+            default 37
+            range 1 48
+            help
+                Pin number for the RX LED for the case pickup.
+
+        config IO_PIN_ROT_A
+            int "Rotary Encoder pin A Input GPIO Number"
+            default 8
+            range 1 48
+            help
+                Pin number used for rotary encoder pin A.
+
+        config IO_PIN_ROT_B
+            int "Rotary Encoder pin B Input GPIO Number"
+            default 18
+            range 1 48
+            help
+                Pin number used for rotary encoder pin B.
+
+        config IO_PIN_ROT_SW
+            int "Rotary Encoder Switch Input GPIO Number"
+            default 4
+            range 1 48
+            help
+                Pin number used for rotary encoder switch pin.
+
+        config IO_PIN_START_STOP_SWITCH
+            int "Start Stop Button GPIO Number"
+            default 44
+            range 1 48
+            help
+                Pin number for the Start/Stop Button.
+
+        menu "Temperature Config"
+            config IO_PIN_DS18B20
+                int "DS18B20 One Wire GPIO Number"
+                default 42
+                range 1 48
+                help
+                    Pin number used for One wire for DS18B20 for temperature sensors.
+            
+            config DS18B20_COUNT
+                int "DS18B20 Count"
+                default 1
+                range 1 2
+                help
+                    Number of DS18B20's connected.
+
+            config TEMPERATURE_SLOW_DOWN
+                int "Temperature Slow Down"
+                default 35
+                range 1 50
+                help
+                    Temperature at which the annealer will start to slow down annealing.
+
+            config TEMPERATURE_STOP
+                int "Failsafe Stop Temperature"
+                default 50
+                range 1 60
+                help
+                    Temperature at which the annealer will stop annealing and wait for the unit to cool down.
+        endmenu
+
+        menu "ADC Config"
+            config OVERCURRENT_THRESHOLD
+                int "Over current Threshold (mA)"
+                default 20800
+                range 1000 30000
+                help
+                    Current (mA) at which the annealer will stop annealing.
+        endmenu
+
+        menu "Stepper Driver IO Config"
+            config IO_PIN_STEPPER_COMMON_DIR
+                int "Stepper driver DIR pin"
+                default 42
+                range 1 48
+                help
+                    Pin number of stepper drivers DIR pin (Common between both stepper drivers).
+
+            config STEPPER_DIR_FOR_CHAM_UP
+                int "Stepper DIR CHAM Up"
+                default 1
+                range 0 1
+                help
+                    Stepper DIR value for moving Case Height Adjustment Module Up (towards the coil).
+
+            config STEPPER_DIR_FOR_CASE_FEEDER_CLOCKWISE
+                int "Stepper DIR Case Feeder Clockwise"
+                default 1
+                range 0 1
+                help
+                    Stepper DIR value for moving Case Feeder Clockwise.
+
+            config IO_PIN_STEPPER_COMMON_FAULT
+                int "Stepper driver FAULT pin"
+                default 41
+                range 1 48
+                help
+                    Pin number of stepper drivers FAULT pin (Common between both stepper drivers).
+
+            config IO_PIN_STEPPER_CASE_FEEDER_RST
+                int "Case Feeder Stepper RST Pin"
+                default 39
+                range 1 48
+                help
+                    Case feeder stepper motor driver RST Pin.
+
+            config IO_PIN_STEPPER_CASE_FEEDER_STEP
+                int "Case Feeder Stepper STEP Pin"
+                default 38
+                range 1 48
+                help
+                    Case feeder stepper motor driver STEP Pin.
+
+            config IO_PIN_STEPPER_CHAM_RST
+                int "CHAM Stepper RST Pin"
+                default 1
+                range 1 48
+                help
+                    Case height adjustment stepper motor driver RST Pin.
+
+            config IO_PIN_STEPPER_CHAM_STEP
+                int "CHAM Stepper STEP Pin"
+                default 2
+                range 1 48
+                help
+                    Case height adjustment stepper motor driver STEP Pin.
+
+            config IO_PIN_CHAM_HOME_SWITCH
+                int "CHAM Home Switch GPIO Number"
+                default 43
+                range 1 48
+                help
+                    Pin number used for the Case height adjustment module home switch.
+        endmenu
+
+        menu "LCD IO Configuration"
+            config IO_PIN_LCD_BACKLIGHT
+                int "LCD Backlight GPIO Number"
+                default 3
+                range 1 48
+                help
+                    Pin number To Control LCD Backlight.
+
+            config IO_PIN_LCD_RESET
+                int "LCD Reset GPIO Number"
+                default 17
+                range 1 48
+                help
+                    Pin number for LCD Reset.
+
+            config IO_PIN_LCD_A0
+                int "LCD A0 GPIO Number"
+                default 16
+                range 1 48
+                help
+                    Pin number For LCD Data/Control line.
+        
+            choice 
+                prompt "Choose LCD interface"
+                default LCD_TYPE_I2C
+                config LCD_TYPE_I2C
+                    bool "I2C LCD"
+
+                config LCD_TYPE_SPI
+                    bool "SPI LCD"
+            endchoice
+
+            if LCD_TYPE_I2C
+                config IO_PIN_I2C_SDA
+                    int "I2C SDA Pin"
+                    default 6
+                    range 1 48
+                    help
+                        Pin number used for LCD I2C SDA.
+
+                config IO_PIN_I2C_SCL
+                    int "I2C SCL Pin"
+                    default 5
+                    range 1 48
+                    help
+                        Pin number used for LCD I2C SCL.
+
+                choice 
+                    prompt "I2C Number"
+                    default LCD_I2C_NUM0
+                    config LCD_I2C_NUM0
+                        bool "I2C_NUM_0"
+
+                    config LCD_I2C_NUM1
+                        bool "I2C_NUM_1"
+                endchoice
+            endif
+
+            if LCD_TYPE_SPI
+                config IO_PIN_SPI_CLK
+                    int "SPI Clock Pin"
+                    default 7
+                    range 1 48
+                    help
+                        LCD SPI Clock Pin.
+
+                config IO_PIN_SPI_MOSI
+                    int "SPI MOSI Pin"
+                    default 6
+                    range 1 48
+                    help
+                        LCD SPI MOSI Pin.
+
+                config IO_PIN_SPI_MISO
+                    int "SPI MISO Pin"
+                    default 5
+                    range 1 48
+                    help
+                        LCD SPI MISO Pin.
+
+                config IO_PIN_SPI_CS
+                    int "SPI CS Pin"
+                    default 15
+                    range 1 48
+                    help
+                        LCD SPI Chip Select Pin.
+
+                choice 
+                    prompt "SPI Host"
+                    default LCD_SPI2_HOST
+                    config LCD_SPI1_HOST
+                        bool "SPI1_HOST"
+
+                    config LCD_SPI2_HOST
+                        bool "SPI2_HOST"
+
+                    config LCD_SPI3_HOST
+                        bool "SPI3_HOST"
+                endchoice
+            endif
+        
+        endmenu
+    endmenu
+
+    menu "Case Height Adjustment Config"
+        config CHAM_MIN_CASE_LENGTH
+            int "CHAM Min Case Height (um)"
+            default 30000
+            range 100 100000
+            help
+                Minimum supported case length (in micrometer) by case height adjustment module.
+
+        config CHAM_MAX_CASE_LENGTH
+            int "CHAM Max Case Height (um)"
+            default 89000
+            range 100 100000
+            help
+                Maximum supported case length (in micrometer) by case height adjustment module.
+
+        config CHAM_PULSES_PER_MM
+            int "CHAM Pulses per mm"
+            default 800
+            range 100 100000
+            help
+                Number of pulses requierd to move the case height adjustment module 1mm.
+    endmenu
+
+endmenu

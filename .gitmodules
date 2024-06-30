@@ -1,0 +1,14 @@
+[submodule "components/pubsub-c"]
+	path = components/pubsub-c
+	url = https://github.com/AMEv2/pubsub-c.git
+	branch = esp32-port
+[submodule "components/esp32-owb"]
+	path = components/esp32-owb
+	url = https://github.com/AMEv2/esp32-owb.git
+[submodule "components/esp32-ds18b20"]
+	path = components/esp32-ds18b20
+	url = https://github.com/AMEv2/esp32-ds18b20.git
+[submodule "components/u8g2"]
+	path = components/u8g2
+	url = https://github.com/AMEv2/u8g2.git
+	branch = esp32-amev2
